@@ -82,6 +82,7 @@ STAT_DISTANCE_ABSOLUTE = "distance_absolute"
 STAT_MEAN = "mean"
 STAT_MEAN_CIRCULAR = "mean_circular"
 STAT_MEDIAN = "median"
+STAT_MODE = "mode"
 STAT_NOISINESS = "noisiness"
 STAT_PERCENTILE = "percentile"
 STAT_STANDARD_DEVIATION = "standard_deviation"
@@ -112,6 +113,7 @@ STATS_NUMERIC_SUPPORT = {
     STAT_MEAN,
     STAT_MEAN_CIRCULAR,
     STAT_MEDIAN,
+    STAT_MODE,
     STAT_NOISINESS,
     STAT_PERCENTILE,
     STAT_STANDARD_DEVIATION,
@@ -750,6 +752,11 @@ class StatisticsSensor(SensorEntity):
     def _stat_median(self) -> StateType:
         if len(self.states) > 0:
             return statistics.median(self.states)
+        return None
+
+     def _stat_mode(self) -> StateType:
+        if len(self.states) > 0:
+            return statistics.mode(self.states)
         return None
 
     def _stat_noisiness(self) -> StateType:
